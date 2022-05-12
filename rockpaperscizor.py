@@ -49,7 +49,7 @@ player_label = Label(player_frame, text = "Player: ", font = 10)
 player_label.pack(side = LEFT, padx = 10)
 
 player_score = Label(player_frame, text = 0, font = "normal 10 bold")
-player_score.pack()
+player_score.pack(side = LEFT)
 
 computer_frame = Frame(root)
 computer_frame.pack(pady = 5)
@@ -58,7 +58,9 @@ computer_label = Label(computer_frame, text = "Computer: ", font = 10)
 computer_label.pack(side = LEFT, padx = 10)
 
 computer_score = Label(computer_frame, text = 0, font = "normal 10 bold")
-computer_score.pack()
+computer_score.pack(side = LEFT)
+
+title_label = Label(root, text = "Player VS Computer", font = 20).pack(pady = 5)
 
 fight_label = Label(root, text = "", font = "normal 20 bold", bg = "white", width = 15, borderwidth = 2, relief = "solid")
 fight_label.pack(pady = 5)
