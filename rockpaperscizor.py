@@ -1,46 +1,80 @@
-import random
-import userschoice
+import computerchoice
+from tkinter import *
 
-next_turn = True
+player_count = 0
+computer_count = 0
 
-while next_turn:
-    u = userschoice.user_selection()
-    u = u.lower()
+root = Tk()
 
-    while u != "rock" and u != "paper" and u != "scissor" :
-        print("Your choice is not correct. Your choices are rock,paper,scissor \n")
-        u = userschoice.user_selection()
-        u = u.lower()
-    
-    possible_actions = ["rock","paper","scissor"]
-    machine_choice = random.choice(possible_actions)
+root.geometry("600x250")
 
-    print("\nYou choose: " + u + "\n\n" + "Machine choose: " + machine_choice + "\n\n")
-    if u == machine_choice:
-        print("We got a tie!!")
-    elif u == "rock":
-        if machine_choice == "paper":
-            print("Machine wins\n")
-        elif machine_choice == "scissor":
-            print("You win\n")
-    elif u == "paper":
-        if machine_choice == "scissor":
-            print("Machine wins\n")
-        elif machine_choice == "rock":
-            print("You win\n")
+root.title("Rock Paper Scissor")
+
+def gameplay(user):
+    computer = computerchoice.selection()
+
+    global player_count
+    global computer_count
+
+    fight_label.config(text = "" + user + " VS " + computer + "" )
+
+    if user == "rock":
+        if computer == "paper":
+             computer_count = computer_count + 1
+             computer_score.config(text = computer_count)
+        elif computer == "scissor":
+             player_count = player_count + 1
+             player_score.config(text = player_count)
+    elif user == "paper":
+        if computer == "scissor":
+             computer_count = computer_count + 1
+             computer_score.config(text = computer_count)
+        elif computer == "rock":
+             player_count = player_count + 1
+             player_score.config(text = player_count)
     else:
-        if machine_choice == "rock":
-            print("Machine wins\n")
-        elif machine_choice == "paper":
-            print("You win\n")
-
-    again = input("Do you want to play again?(y/n): ")
-    while again != "y" and again != "n":
-        again = again = input("Do you want to play again?(y/n): ")
+        if computer == "rock":
+             computer_count = computer_count + 1
+             computer_score.config(text = computer_count)
+        elif computer == "paper":
+             player_count = player_count + 1
+             player_score.config(text = player_count)
     
-    if again == "y":
-        next_turn = True
-    else:
-        next_turn = False
 
-    
+
+player_frame = Frame(root)
+player_frame.pack(pady = 20)
+
+player_label = Label(player_frame, text = "Player: ", font = 10)
+player_label.pack(side = LEFT, padx = 10)
+
+player_score = Label(player_frame, text = 0, font = "normal 10 bold")
+player_score.pack()
+
+computer_frame = Frame(root)
+computer_frame.pack(pady = 5)
+
+computer_label = Label(computer_frame, text = "Computer: ", font = 10)
+computer_label.pack(side = LEFT, padx = 10)
+
+computer_score = Label(computer_frame, text = 0, font = "normal 10 bold")
+computer_score.pack()
+
+fight_label = Label(root, text = "", font = "normal 20 bold", bg = "white", width = 15, borderwidth = 2, relief = "solid")
+fight_label.pack(pady = 5)
+
+buttons_frame = Frame(root)
+buttons_frame.pack(pady = 10)
+
+rock = Button(buttons_frame, text = "Rock", font = 10, width = 7, command = lambda: gameplay("rock"))
+rock.pack(side = LEFT, padx = 10)
+ 
+paper = Button(buttons_frame, text = "Paper", font = 10, width = 7, command = lambda: gameplay("paper"))
+paper.pack(side = LEFT, padx = 10)
+ 
+scissor = Button(buttons_frame, text = "Scissor", font = 10, width = 7, command = lambda: gameplay("scissor"))
+scissor.pack()
+ 
+
+root.mainloop()
+
